@@ -1,0 +1,87 @@
+<div class="col-3 pt-3 float-right">
+    <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+    <input type="file" accept="image/*" #myFileInput placeholder="upload a profile image here" (change)="upLoadImage
+    (myFileInput)">
+    <img [src]="!readerResult?'thisCurrentUserDetails.image':'readerResult'"  class="img-fluid" style="width: 40px;" alt="">
+    <img width="200px" height="200px" [src]="thisCurrentUserDetails.image" alt="" style="border-radius: 100px;">
+    {{thisCurrentUserDetails.fName}} {{thisCurrentUserDetails.lName}}
+  
+</div>
+<div class="col-6 pt-4 ml-3">
+    <input type="text" class="form-control " placeholder="search"  >
+</div>
+<div class="row animate__animated animate__pulse">
+    <div class="col-2 pt-5 border-right">
+        <button mat-button color="primary" class="full-width border-bottom" (click)="openDialog()">Transfer</button>
+        <button mat-button color="primary" class="full-width  border-bottom" (click)="openCreatewallet()">Create wallet</button>
+        <button mat-button color="primary" class="full-width  border-bottom"(click)="requestMsg()">Requests</button>
+        <button mat-button color="primary" class="full-width  border-bottom">History</button>
+        <button mat-button color="primary" class="full-width  border-bottom" (click)="openFundWallet()">Fund wallet</button>
+        
+    </div>
+    <div class="col-5 pt-5">
+        
+        <!-- <p class="clear-fix"></p> -->
+      <div class="row ">
+        <div class="col-10">
+            <mat-card class="text-center">
+                <mat-card-title>Cards</mat-card-title>
+                <mat-card-subtitle class="border-bottom"><span >Master card</span></mat-card-subtitle>
+               <p class="alert-primary"><b>Acct bal.</b> {{thisCurrentUserDetails.balance | currency :'NGN':'symbol-narrow'}}</p>
+               <p  class="alert-dark"><b>Acct No:</b> {{thisCurrentUserDetails.acctNo}}</p>
+            </mat-card>
+           </div>
+           <p class="clear-fix"></p>
+          <div class="col-10">
+              <mat-card>
+                  <mat-card-subtitle [style.display]="!thisCurrentUserDetails.messages?'none':'block'">Messages</mat-card-subtitle>
+                  <div *ngFor="let o of thisCurrentUserDetails.messages; let i = index" >
+                      <!-- <div  *ngIf="thisCurrentUserDetails.messages==''?"></div> -->
+                      {{o.request}}  <span>at</span> <b>{{o.time}}{{o.date}}</b>
+                    
+                       
+                        <button mat-raised-button color="primary" (click)="accept(o.name,o.amount,i)">accept</button>
+                        <button mat-raised-button color="accent" (click)=reject(i,o.name)>reject</button>
+                   
+                  </div>
+              </mat-card>
+          </div>
+      </div>
+        <div class="row">
+            <mat-card class="col-md-12">
+                <mat-card-title class="pt-5">Transactions</mat-card-title>
+             <div *ngFor="let a of thisCurrentUserDetails.wallets; let i = index" style="width: 100%;"> <button mat-button color="accent">i</button> <span> {{a.name}} </span> <span>{{a.amount | currency :'NGN':'symbol-narrow'}}</span> <span>{{a.time}} {{a.date}}</span>
+            <button mat-raised-button (click)="withdraw(a.amount,i)" [disabled]="a.amount==''">withdraw</button>&nbsp;
+            <button mat-raised-button  (click)="fund(a.name)" >fund</button>
+            </div>
+             <p class="clear-fix"></p>
+             </mat-card>
+        </div>
+    </div>
+   
+    <div class="col-4 pt-5">
+        
+        <div class="row">
+            <div class="col-12 pt-3">
+                <mat-card>
+                    <mat-card-subtitle  [style.display]="thisCurrentUserDetails.history==''?'none':'block'"> History</mat-card-subtitle>
+                    <div *ngFor="let i of thisCurrentUserDetails.history">
+                    {{i.request}}  
+                    <img mat-card-avatar src="../../assets/download (2).jfif" alt="" *ngIf=""> {{i.desc}}
+                  </div>
+                  
+               </mat-card>
+            </div>
+           
+            <div class="col-12 pt-3">
+                <mat-card>
+                   <mat-card-subtitle> Transactions Statistics</mat-card-subtitle>
+                <small>quick transfer</small>
+                <input type="text" class="form-control" placeholder="12345 6789 visa" readonly>
+               </mat-card>
+            </div>
+           </div>
+    </div>
+    
+</div>
+

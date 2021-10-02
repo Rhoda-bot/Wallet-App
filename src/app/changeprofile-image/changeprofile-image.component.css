@@ -1,0 +1,18 @@
+img{
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+.card1{
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); 
+    font-size: 20px;
+    border-radius: 20px 0px 20px 0px;
+
+}
+.full-width{
+    width: 100%;
+}
+.card2{
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); 
+    
+}

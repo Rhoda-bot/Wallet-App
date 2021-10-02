@@ -1,0 +1,250 @@
+
+    <div class="display border text-center">
+        <h5 class="alert-success">   Dear @{{thisUser.lName}}, your wallet account is currently.{{thisUser.balance | currency:'NGN':'symbol-narrow'}} <button class="btn alert-success border-bottom" (click)="show()">fund wallet</button> <button class="btn alert-success border-bottom" (click)="createWallets()">create wallet</button>
+            <button class="btn alert-success border-bottom">withdraw</button>
+            <button class="btn alert-success border-bottom" (click)="transfer()">Transfer</button>
+        </h5>
+    </div>
+    <h4>Your total Amount is{{thisUser.totalAmount | currency:'NGN':'symbol-narrow'}}</h4>
+    <div class="row">
+        <div class="col-4" id="transfer" style="display: none;">
+            <div class="card">
+                <input class="form-control" [(ngModel)]="clientAcct" type="number" placeholder="Enter Account Number">
+                <input class="form-control" [(ngModel)]="amountToTransfer" type="number" placeholder="Enter Account To Transfer">
+                <!-- <input class="form-control" [(ngModel)]="myPassword" type="password" placeholder="password"> -->
+                <button class="btn alert-success" (click)="transferAmount()">Transfer</button>
+            </div>
+           </div>
+    </div>
+    <div class="row">
+        <div class="col-3  pt-3">
+            <div class="card" id="createWallets" style="display: none;">
+                <div class="card header text-center">
+                    <div class="card title">
+                        <h5 >Create other wallets</h5>
+                    </div>
+                </div>
+                <input class="form-control" type="text" placeholder="Create wallet Name" [(ngModel)]="walletName">
+                <input class="form-control" type="text" placeholder="Amount"  [(ngModel)]="walletAmount">
+                <button (click)="saveWallet()" class="btn alert-success">create wallet</button>
+                <button class="btn alert-danger" (click)="cancel()">cancel</button>
+            </div>
+        </div>
+        <div class="col-4  pt-3" style="display: none;" id="fundding">
+            <div class="card">
+                <div class="card-header text-center">
+                    <div class="card-title">
+                        <h4>Fund your wallet</h4>
+                    </div>
+                </div>
+                
+                <input type="number" class="form-control" placeholder="enter your wallet account" [(ngModel)]="acctNum">
+                <input type="amount" class="form-control" placeholder="enter the amount you would like to fund." [(ngModel)]="amountToFund">
+                <button class="btn alert-success" (click)="fundWallet()">fund wallet</button>
+                <button class="btn alert-warning" (click)="cancel()">cancel</button>
+            </div>
+        </div>
+       
+    </div>
+  
+     
+                <div class="row"  *ngFor="let wallets of allWallet; let i =index">
+                       <div class="col-md-4  my-2 border-right"  *ngFor="let w of wallets; let i= index">
+                        <div class="card text-center">
+                            {{w.name}} <button class="btn alert-danger"(click)="delete(i)">delete</button>
+                            <p>{{w.amount| currency :'NGN':'symbol-narrow'}}</p>
+                          
+                            <input type="text" class="form-control" (change)="getInp($event)"  [style]="displayInp==true?{display:'none'}:{display:'block'}">
+                         
+                            <button class="btn alert-success" (click)="fundme(i,w.name)">fund wallet</button>
+                            <button class="btn alert-success">withdraw</button>
+                        </div>
+                       </div>
+              </div>
+
+    
+  thisUser:any=[];
+  allWallet =[];
+  walletName
+  walletAmount
+  display=0;
+  acctNum;
+  amountToFund;
+  myRouteName;
+  thisUserDetails;
+  allUsers
+  indexOfThisUserDetails;
+  clientAcct;
+  amountToTransfer;
+  myPassword;
+  displayInp=true; 
+  miniWalletFund
+
+  // allWallets=[]
+  ngOnInit(): void {
+    this.actRoute.paramMap.subscribe(data=>{
+      this.myRouteName = data.get("fName");
+      // console.log( this.myRouteName);
+      
+      
+    })
+   this.thisUser=this.service.getAllusers.find(val=>val.fName==this.myRouteName);
+   this.allWallet.push(this.thisUser.wallets);
+   this.allUsers = this.service.getAllusers;
+   this.indexOfThisUserDetails =this.allUsers.indexOf(this.thisUser);
+   
+
+
+   console.log(this.allWallet);
+   
+  }
+  saveWallet(){
+
+    let a = this.service.getAllusers.find(val=>val.fName==this.myRouteName);
+    let obj = {name:this.walletName,amount:this.walletAmount};
+   
+
+    if (+this.thisUser.balance<=+this.walletAmount) {
+
+      console.log("the amount is greater than your wallet balance");
+      this.walletName="";
+      this.walletAmount="";
+      
+    }else if(+a.balance>+this.walletAmount){
+      this.thisUser.wallets.push(obj);  
+      this.thisUser.balance-=this.walletAmount;
+      this.allUsers[this.indexOfThisUserDetails]=this.thisUser;
+      localStorage.setItem("myUsers",JSON.stringify(this.allUsers))
+      localStorage.setItem("login-user",JSON.stringify(this.thisUser));
+      this.walletName="";
+      this.walletAmount="";
+     
+    }
+  
+  }
+  createWallets(){
+    if (this.display==1) {
+      document.getElementById("createWallets").style.display ="block";
+      document.getElementById("transfer").style.display ="none";
+      this.display=0;
+    }
+    else if(this.display==0){
+      document.getElementById("createWallets").style.display ="none";
+      this.display+=1;
+    }
+  }
+  show(){
+     if (this.display==1) {
+      document.getElementById("fundding").style.display ="block";
+      document.getElementById("transfer").style.display ="none";
+      document.getElementById("createWallets").style.display ="none";
+      this.display=0;
+    }
+    else if(this.display==0){
+      document.getElementById("fundding").style.display ="none";
+      this.display+=1;
+    }
+  }
+  transfer(){
+    if (this.display==1) {
+     document.getElementById("transfer").style.display ="block";
+     this.display=0;
+     document.getElementById("fundding").style.display ="none";
+     document.getElementById("createWallets").style.display ="none";
+   }
+   else if(this.display==0){
+     document.getElementById("transfer").style.display ="none";
+     this.display+=1;
+   }
+ }
+  fundWallet(){
+ 
+   this.thisUserDetails = this.service.getAllusers.find(val=>val.fName ==this.myRouteName)
+   
+   this.allUsers = this.service.getAllusers
+     this.indexOfThisUserDetails =this.allUsers.indexOf(this.thisUserDetails);
+   
+    if (this.thisUserDetails.acctNo==this.acctNum) {
+      this.allUsers[this.indexOfThisUserDetails].balance +=Number(this.amountToFund);
+      this.allUsers[this.indexOfThisUserDetails].totalAmount+=Number(this.amountToFund);
+      
+     
+     
+      localStorage.setItem("myUsers",JSON.stringify(this.allUsers));
+      localStorage.setItem("login-user",JSON.stringify(this.thisUser));
+      this.acctNum ="";
+      this.amountToFund="";
+
+
+      
+    }else{
+      console.log("invalid acct number");
+      
+    }
+  }
+  cancel(){
+    document.getElementById("fundding").style.display="none";
+  }
+  transferAmount(){
+    let date = new Date();
+    let dn = date.toDateString();
+
+    //transferPartner details
+   let o= this.allUsers.find(val=>val.acctNo==+this.clientAcct);
+   // sender details
+   let i= this.allUsers.find(val=>val.fName ==this.myRouteName);
+   let indexOfClient =this.allUsers.indexOf(o);
+
+   //
+    this.allUsers[indexOfClient].history.push({
+    name:i.fName,amount:this.amountToTransfer,date:dn,transactionType:"credit"
+   })
+   this.allUsers[indexOfClient].balance+=this.amountToTransfer;
+   
+
+   //
+     this.allUsers[this.indexOfThisUserDetails].history.push({
+      name:o.fName,amount:Number(this.amountToTransfer),transactionType:"debit",date:dn
+    })
+   
+    this.allUsers[this.indexOfThisUserDetails].balance-=this.amountToTransfer;
+    this.allUsers[this.indexOfThisUserDetails].totalAmount-=this.amountToTransfer;
+    // this.thisUser.balance-=Number(this.amountToTransfer);
+      console.log(this.allUsers[this.indexOfThisUserDetails]);
+      console.log(this.allUsers[indexOfClient]);
+      
+    localStorage.setItem("myUsers",JSON.stringify(this.allUsers));
+    localStorage.setItem("login-user",JSON.stringify(this.thisUser));
+    this.amountToTransfer="";
+    this.clientAcct="";
+  }
+
+
+  //deleting created wallets
+  delete(param){
+    this.allUsers[this.indexOfThisUserDetails].balance+=parseFloat(this.allUsers[this.indexOfThisUserDetails].wallets[param].amount)
+    this.allUsers[this.indexOfThisUserDetails].wallets=this.allUsers[this.indexOfThisUserDetails].wallets.filter((val,i)=>i!=param)
+    this.allUsers[this.indexOfThisUserDetails]=this.thisUser;
+    localStorage.setItem("myUsers",JSON.stringify(this.allUsers))
+    localStorage.setItem("login-user",JSON.stringify(this.thisUser))
+    console.log( this.allUsers[this.indexOfThisUserDetails]);
+    
+ 
+  }
+  fundme(i,r){
+    
+    if (this.displayInp==true) {
+      console.log(r,i);
+     
+      this.displayInp=false;
+    }else if (this.displayInp==false) {
+      
+      this.displayInp=true;
+    }
+  }
+  getInp(i){
+  // let a= this.allUsers[this.indexOfThisUserDetails].wallets.find((val,ind)=>console.log(this.allUsers[this.indexOfThisUserDetails].wallets[ind].name)
+  // )
+    console.log(i.currentTarget);
+    
+  }

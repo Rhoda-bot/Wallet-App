@@ -1,0 +1,46 @@
+
+
+   
+        <div class="pt-3 animate__animated animate__bounce body">
+            <div class="row ">
+                <div class="col-md-6 mx-auto">
+                    <mat-card class="example-card body shadow mycard">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title>Sign In</mat-card-title>
+                          <mat-card-subtitle>User name</mat-card-subtitle>
+                        </mat-card-header>
+                        <img mat-card-image src="../../assets/undraw_welcome_cats_thqn.svg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                            <form (submit)="submitLogin()" [formGroup]="userLogin">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Email</mat-label>
+                                    <input placeholder="Email" matInput type="email" class=""  formControlName="email">
+                                    <small class="alert-danger" *ngIf="userLogin.get('email')?.hasError('required')">Email is required</small>
+                                    <!-- <small class="alert-warning" *ngIf="userLogin.get('email')?.hasError('isvalid')"> Invalid Email</small> -->
+                                </mat-form-field>
+                                
+                                <div>
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Password</mat-label>
+                                        <input placeholder="Password"  matInput type="password" class="matInput " formControlName="password">
+                                        <small *ngIf="userLogin.get('password')?.hasError('required')">Password is required</small>
+                                    </mat-form-field>
+                                   
+                                </div>
+                                <button  mat-raised-button class="btn-block" id="btn" type="submit">login</button>
+                            </form>
+                        </mat-card-content>
+                       
+                      </mat-card>
+                </div>
+                <!-- <div class="col-md-6">
+                    <mat-card class="example-card body">
+                        <img src="" alt="" class="img-fluid">
+                    </mat-card>
+                </div> -->
+            </div>
+        </div>
+
+   
+

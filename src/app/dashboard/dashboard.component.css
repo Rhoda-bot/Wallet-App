@@ -1,0 +1,17 @@
+.full-width{
+    width: 100%;
+    padding: 20px;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #f5f1f7 100%);
+    
+  
+}
+mat-card{
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    
+
+}
+/* .text-center{
+    background: linear-gradient(to bottom, #33ccff 9%, #ccccff 96%);
+} */

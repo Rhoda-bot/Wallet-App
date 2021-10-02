@@ -1,0 +1,47 @@
+<input type="file" accept="image/*" #myFileInput placeholder="upload a profile image here" (change)="upLoadImage
+    (myFileInput)">
+    <!-- <img [src]="!readerResult?'thisCurrentUserDetails.image':'readerResult'"  class="img-fluid" style="width: 40px;" alt=""> -->
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <mat-card class="card1 shadow">
+                    <mat-card-title class="text-center">Profile Details <button (click)="edit()" mat-raised-button>edit profile</button></mat-card-title>
+                    <img [src]="thisCurrentUserDetails.image" mat-card-avatar class="img-fluid align-center">
+
+                    <mat-card class="card text-center">
+                        {{thisCurrentUserDetails.fName}}
+                    </mat-card>
+                    <mat-card class="card text-center">
+                        {{thisCurrentUserDetails.lName}}
+                    </mat-card>
+                    <mat-card class="card text-center">
+                        {{thisCurrentUserDetails.email}}
+                    </mat-card>
+                    <mat-card class="card text-center">
+                        {{thisCurrentUserDetails.phone}}
+                    </mat-card>
+                </mat-card>
+            </div>
+            <div class="col-md-8 " id="myEditForm" style="display: none;">
+                <mat-card class="card2 shadow">
+                    <form class="shadow" (submit)="submitEditForm()" [formGroup]="editForm">
+                        <mat-form-field class="full-width text-center">
+                            <input formControlName="fName" type="text" matInput [placeholder]="thisCurrentUserDetails.fName">
+                        </mat-form-field>
+                        <mat-form-field class="full-width text-center">
+                            <input formControlName="lName" type="text" matInput [placeholder]="thisCurrentUserDetails.lName">
+                        </mat-form-field>
+                        <mat-form-field class="full-width text-center">
+                            <input formControlName="email" type="text" matInput [placeholder]="thisCurrentUserDetails.email">
+                        </mat-form-field>
+                        <mat-form-field class="full-width text-center">
+                            <input formControlName="phone" type="text" matInput [placeholder]="thisCurrentUserDetails.phone">
+                        </mat-form-field>
+                       <button mat-raised-button color="primary" class="full-width">edit</button>
+                     
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>

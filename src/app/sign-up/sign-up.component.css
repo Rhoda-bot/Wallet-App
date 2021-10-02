@@ -1,0 +1,26 @@
+
+  
+  .example-header-image {
+    background-image: url('../../assets/undraw_welcome_cats_thqn.svg');
+    background-size: cover;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+  .mycard{
+    /* padding: 5px; */
+    /* column-gap: 10px; */
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  }
+  #btn{
+    background-color: #DCD9D4;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+    background-blend-mode: soft-light,screen;
+    border-radius: 50px;
+  }
+  .mycard1{
+    padding-left: -5px;
+    margin-left: -10px;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    /* max-height: 557px; */
+  }

@@ -1,0 +1,44 @@
+<!-- <mat-card>
+       <mat-card-title>
+        Transfer Money
+       </mat-card-title>
+       <mat-card-content>
+       <mat-form-field>
+           <input type="text" class="form-control" placeholder="account Number">
+       </mat-form-field>
+       <mat-form-field>
+        <input type="text" class="form-control" placeholder="Amount">
+    </mat-form-field>
+    <button mat-button color="primary">Transfer</button>
+       </mat-card-content>
+</mat-card> -->
+
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Transfer</mat-card-title>
+      <mat-card-subtitle>transfer details</mat-card-subtitle>
+    </mat-card-header>
+    <!-- <img mat-card-image src="../../assets/undraw_welcome_cats_thqn.svg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+        <form [formGroup]="transferDetails">
+            <mat-form-field class="example-full-width">
+                <mat-label>Account Number</mat-label>
+                <input placeholder="Account Number" matInput type="number" formControlName="acctNumber">
+            </mat-form-field>
+            
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Amount</mat-label>
+                    <input placeholder="Amount to Transfer"  matInput type="number" formControlName="amounttoTransfer">
+                </mat-form-field>
+               
+            </div>
+            <button  mat-button id="transfer" class="btn-block" (click)="transfer()">transfer</button>
+            <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+            <button   color="accent" class="btn-block" mat-button mat-dialog-close>cancel</button>
+
+        </form>
+    </mat-card-content>
+   
+  </mat-card>

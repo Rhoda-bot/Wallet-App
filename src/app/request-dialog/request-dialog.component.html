@@ -1,0 +1,11 @@
+<div class="col-12 pt-2">
+    <span>...</span>
+   <mat-card>
+       <mat-card-subtitle>Request Messages...</mat-card-subtitle>
+       <input type="text" class="form-control" matInput placeholder=" Sender's Account Number" [(ngModel)]="senderAcc"><br>
+      <textarea name="" id="" cols="18" rows="3" class="form-control" placeholder="Enter request here" [(ngModel)]="requestMessages"></textarea><br>
+      <input type="number" placeholder="Amount to Request" class="form-control" [(ngModel)]="amtToRequest"><br>
+      <button mat-raised-button  (click)="request()">Request</button>&nbsp;&nbsp;
+      <button mat-raised-button color="accent" mat-dialog-close>cancel</button>
+   </mat-card>
+</div>

@@ -1,0 +1,8 @@
+<mat-card>
+    <mat-card-title class="text-center">{{info}}</mat-card-title>
+    <input type="number" [(ngModel)]="amount" placeholder="amount" class="form-control"><br>
+    <div>
+        <button mat-raised-button (click)="fundWallet()" [disabled]="!amount">fund</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button mat-dialog-close>cancel</button>
+    </div>
+</mat-card>

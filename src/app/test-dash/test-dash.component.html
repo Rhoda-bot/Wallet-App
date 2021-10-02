@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-sm-6 ">
+            <input type="text" placeholder="search" class="form-control">
+        </div>
+        <div class="col-md-3 ml-5">
+            <img width="50px" height="50px" [src]="thisCurrentUserDetails.image" alt="" style="border-radius: 100px;">
+            {{thisCurrentUserDetails.fName}} {{thisCurrentUserDetails.lName}}
+            <button  mat-icon-button><mat-icon>notification{{messagesLength}}</mat-icon></button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 pt-2 border-right">
+            <button mat-button color="primary" class="full-width border-bottom" (click)="openDialog()">Transfer</button>
+            <button mat-button color="primary" class="full-width  border-bottom" (click)="openCreatewallet()">Create wallet</button>
+            <button mat-button color="primary" class="full-width  border-bottom"(click)="requestMsg()">Requests</button>
+            <button mat-button color="primary" class="full-width  border-bottom" (click)="changeImage()">change status</button>
+            <button mat-button color="primary" class="full-width  border-bottom" (click)="openFundWallet()">Fund wallet</button>
+            
+        </div>
+        <div class="col-sm-4 border-right">
+          
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12 pt-3">
+                    <div class="card shadow">
+                          <mat-card-title class="mycard">Balance</mat-card-title>
+                            
+                                  <div class="col-12">
+                                      <div class="card-title border-bottom mycard" style="font-size: 20px;">{{thisCurrentUserDetails.balance | currency :'NGN':'symbol-narrow'}}</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-title border-bottom mycard" style="font-size: 20px;">
+                                            <span>Acct No:-</span>{{thisCurrentUserDetails.acctNo}}
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                             
+                            
+                             <div class="col-12 pt-3 shadow">
+                                <mat-card-title class="pt-2 text-center">Transactions</mat-card-title>
+                             <div *ngFor="let a of thisCurrentUserDetails.wallets; let i = index" style="width: 100%;"> <button mat-button color="accent">i</button> <span> {{a.name}} </span> <span>{{a.amount | currency :'NGN':'symbol-narrow'}}</span> 
+                                <div>
+                                    <button mat-raised-button (click)="withdraw(a.amount,i)" [disabled]="a.amount==''">withdraw</button>&nbsp;
+                                    <button mat-raised-button  (click)="fund(a.name)" >fund</button>
+                                </div>
+                            </div>
+                             <p class="clear-fix"></p>
+                            </div>
+                            </div>
+                        </div>
+        </div>
+        <div class="col-md-4 pt-3">
+            <div class="card mycard shadow">
+                <mat-card-title class="text-center"  [style.display]="thisCurrentUserDetails.history==''?'none':'block'" *ngIf="thisCurrentUserDetails.history==''?'No History Transaction yet':'read'"> History</mat-card-title>
+                <mat-card *ngFor="let i of thisCurrentUserDetails.history">
+                    {{i.request}}  
+                    <img mat-card-avatar src="../../assets/download (2).jfif" width="50px"> {{i.desc}}
+                </mat-card>
+                <button [style.display]="allHistory < 3 ?'none':'block'" color="primary" mat-raised-button (click)="history()">view all</button>
+            </div>
+        </div>
+        <div class="col-md-4 pt-3">
+            <div class="card mycard shadow">
+               <mat-card-title class="text-center" [style.display]="thisCurrentUserDetails.messages==''?'none':'block'">Messages</mat-card-title>
+               <mat-card *ngFor="let o of thisCurrentUserDetails.messages; let i = index" >
+                   <!-- <div  *ngIf="thisCurrentUserDetails.messages==''?"></div> -->
+                   {{o.request}}  <span>at</span> <b>{{o.time}}{{o.date}}</b>
+                 
+                    
+                     <button mat-raised-button color="primary" (click)="accept(o.id,o.amount,i)">accept</button>
+                     <button mat-raised-button color="accent" (click)=reject(i,o.name)>reject</button>
+                
+               </mat-card>
+
+            </div>
+        </div>
+        <div class="col-md-6 pt-3">
+            <div class="card shadow mx-auto mycard">
+                <mat-card-title class="text-center">Other Benefactor's</mat-card-title>
+                <mat-card >
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Name</th>
+                                <th>Acct No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let a of otherUsers;let i=index" >
+                                <td>{{i+1}}</td>
+                                <td>{{a.fName}} {{a.lName}}</td>
+                                <td>{{a.acctNo}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card>
+            </div>
+        </div> 
+  
+    </div>
+</div>

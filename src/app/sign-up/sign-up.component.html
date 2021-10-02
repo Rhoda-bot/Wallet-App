@@ -1,0 +1,70 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-5 pt-4">
+           
+                <form  (submit)="submitForm()" [formGroup]="userForm">
+                        <input placeholder="First Name" type="text" class="form-control" formControlName="fName"><br>
+                        <input placeholder="Last Name" type="text" class="form-control" formControlName="lName"><br>
+                        <input placeholder="Email" type="email" class="form-control" formControlName="email"><br>
+                        <input placeholder="Phone" type="text" class="form-control" formControlName="phone"><br>
+                        <input placeholder="Password" type="password" class="form-control" formControlName="password"><br>
+                        <button class="btn btn-block btn-dark" type="submit">submit</button>
+                     </form>
+           
+        </div>
+    </div>
+</div> -->
+<div class="container-fluid">
+    <div class="row mx-auto">
+    <div class="col-md-4">
+        <mat-card class="example-card mycard">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Sign up</mat-card-title>
+              <mat-card-subtitle>User details</mat-card-subtitle>
+            </mat-card-header>
+           
+            <mat-card-content>
+                <form (submit)="submitForm()" [formGroup]="userForm">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>First Name</mat-label>
+                        <input placeholder="First name" matInput type="text" class="form-control"  formControlName="fName">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input placeholder="Last name" matInput type="text" class="form-control"  formControlName="lName">
+                    </mat-form-field>
+                    
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Email</mat-label>
+                        <input placeholder="Email" matInput type="email" class="form-control"  formControlName="email">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Phone No</mat-label>
+                        <input placeholder="Phone No" matInput type="number" class="form-control"  formControlName="phone">
+                    </mat-form-field>
+                   
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Password</mat-label>
+                            <input placeholder="Password"  matInput type="password" class="form-control" formControlName="password">
+                        </mat-form-field>
+                       
+                    
+                    <button  mat-raised-button class="btn-block" type="submit" id="btn">sign up</button>
+                </form>
+            </mat-card-content>
+           
+          </mat-card>
+    </div>
+    <mat-card class="col-4  mycard1">
+        <!-- <mat-card class="example-card "> -->
+            <img src="../../assets/undraw_welcome_cats_thqn.svg" class="img-fluid pt-4" alt="" >
+        <!-- </mat-card> -->
+    </mat-card>
+</div>
+</div>
+
+
